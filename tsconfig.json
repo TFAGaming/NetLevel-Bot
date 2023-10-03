@@ -1,0 +1,19 @@
+{
+    "compilerOptions": {
+        "jsx": "react",
+        "target": "ES2020",
+        "module": "CommonJS",
+        "outDir": "dist",
+        "strict": true,
+        "esModuleInterop": true
+    },
+    "include": [
+        "src",
+        "global.d.ts"
+, "temp/rank.ts"    ],
+    "exclude": [
+        "node_modules",
+        "dist",
+        "temp/"
+    ]
+}

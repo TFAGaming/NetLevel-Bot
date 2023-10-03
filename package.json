@@ -1,0 +1,25 @@
+{
+  "name": "netlevel",
+  "version": "1.0.0",
+  "description": "",
+  "main": "dist/index.js",
+  "scripts": {
+    "build": "tsc && node ."
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "@napi-rs/canvas": "^0.1.44",
+    "@prisma/client": "^5.2.0",
+    "axios": "^1.4.0",
+    "chalk": "^2.4.2",
+    "discord.js": "^14.13.0",
+    "dotenv": "^16.3.1",
+    "uuid": "^9.0.0"
+  },
+  "devDependencies": {
+    "@types/uuid": "^9.0.3",
+    "prisma": "^5.2.0"
+  }
+}
