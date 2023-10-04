@@ -67,7 +67,7 @@ This project has the similar leveling system as Mee6 and Lurkr, same formula and
 > The package **canvacord** has it's source installed on this project, so avoid to install it via `npm install` command to bypass the latest typings errors.
 
 > **Warning**
-> Make sure that the package **chalk** has the version **v2.4.2** installed because this bot uses CommonJS modules, because the latest version uses ES6 modules.
+> Make sure that the package **chalk** has the version **v2.4.2** installed because this bot uses CommonJS modules, and chalk latest version uses ES6 modules.
 
 ## Dev-dependencies
 - **@types/uuid** v^9.0.3
@@ -102,9 +102,9 @@ DATABASE_URL = "file:./dev.db"
 # Frequently Asked Questions (FAQs):
 
 ## Is it possible to make this bot public?
-Yes it is possible, but it's not recommended since the database might reach 1GB size or more if your bot is more than in 1000 servers, which lowers your database performance. You can make the bot private, even if your server has more than 500,000 members (and the users are active), the database file will reach only to 1MB, which is good and it won't lose it's performance while reading and writing the SQLite file.
+Yes it is possible, but it's not recommended since the database might reach 1GB size or more if your bot is more than in 1000 servers, which lowers your database performance. You can make the bot private, even if your server has more than 500,000 members (and the users are active), the database file will reach only to ~3MB, which is good and it won't lose it's performance while reading and writing the SQLite file.
 
-You can change the main database source from SQLite to any other sources that available to Prisma ORM, such as MongoDB, postgresql... etc.
+You can change the main database source from SQLite to any other sources that available to Prisma ORM, such as MongoDB, postgresql... etc, but you need to edit the models of each default SQLite models in `schema.prisma` file.
 
 It's recommended to make your bot private because of the command `/import`, read the first warning in this following question: [How to import the XP from the Mee6 database?](#how-to-import-the-xp-from-the-mee6-database).
 
@@ -128,7 +128,7 @@ https://mee6.xyz/api/plugins/levels/leaderboard/GUILD_ID?page=20&limit=8
 Make sure to replace "**GUILD_ID**" with an actual server ID that Mee6 is invited on. If Mee6 is on the server but returns an error while fetching using it's API, you must enable the leaderboard to the public, which means anybody can see the users XP leaderboard.
 
 > **Warning**
-> You have a chance of getting rate-limited by Mee6 API, which means you'll get a temporary ban (30 minutes) and you'll be able to use it again. If you get rate-limited again on the same day (24 hours), you will get another temporary ban (2 hours), and then, it's going to be a permanent IP ban.
+> You have a chance of getting rate-limited by Mee6 API, which means you'll get a temporary ban (30 minutes) and you'll be able to use it again after the unban. If you get rate-limited again on the same day (24 hours), you will get another temporary ban (2 hours), and then, it's going to be a permanent IP ban.
 
 > **Note**
 > You can bypass the Mee6 API rate-limit and bans by changing your IP, but it's not recommended. Here is how to bypass:
