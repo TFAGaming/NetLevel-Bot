@@ -77,7 +77,7 @@ export default new NetLevelBotCommand({
             };
 
             await interaction.editReply({
-                content: `Successfully imported **${arr.length}** user\'s XP, saving into the database...\n\nThis might take up to 1 hour, so please wait!`
+                content: `Successfully imported **${arr.length}** user\'s XP, saving into the database...\n\nThis might take up to 15 minutes, so please wait!`
             }).catch(null); 
 
             await client.prisma.user.deleteMany({

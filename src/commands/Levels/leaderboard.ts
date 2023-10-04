@@ -32,12 +32,12 @@ export default new NetLevelBotCommand({
                 .map((each, index) => {
                     const user = client.users.cache.get(each.userId);
 
-                    return `\`#${index + 1}\` ${user ? user.toString() : 'Unknown user'} - **Total XP**: ${formatNumber(each.totalXp)}, **Level**: ${each.level}`
+                    return `\`#${index + 1}\` ${user ? user.toString() : `<@${each.userId}>`}${user?.id === interaction.user.id ? ' (You)' : ''} - **Total XP**: ${formatNumber(each.totalXp)}, **Level**: ${each.level}`
                 })
                 .slice(0, 10);
 
             await interaction.followUp({
-                content: `The leaderboard of **${interaction.guild.name}**:\n\n${mapped.join('\n')}`,
+                content: `The leaderboard of **${interaction.guild.name}**:\n\n${mapped.join('\n')}\n\nYou are currently at rank **#${data.filter((d) => d.userId === interaction.user.id)?.at(0)?.rank || '?'}**.`,
                 allowedMentions: {
                     parse: []
                 }

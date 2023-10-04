@@ -27,6 +27,14 @@ export default new NetLevelBotCommand({
         await interaction.deferReply().catch(null);
 
         try {
+            if (user.bot) {
+                await interaction.followUp({
+                    content: user.toString() + ' is a bot.'
+                }).catch(null);
+
+                return;
+            };
+
             const data = await client.prisma.user.findFirst({
                 where: {
                     guildId: interaction.guild.id,
@@ -36,7 +44,10 @@ export default new NetLevelBotCommand({
 
             if (!data) {
                 await interaction.followUp({
-                    content: 'You currently at level **0**.'
+                    content: (user.id === interaction.user.id ? 'You are ' : `${user.toString()} is `) + 'currently at level **0**.',
+                    allowedMentions: {
+                        parse: []
+                    }
                 });
 
                 return;

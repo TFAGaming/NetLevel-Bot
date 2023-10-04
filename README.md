@@ -1,10 +1,10 @@
 <p align="center">
-    <img src="https://lurkr.gg/_next/image?url=%2F_next%2Fstatic%2Fmedia%2Favatar.0595aeb2.png&w=48&q=75">
-    <img src="https://cdn.discordapp.com/avatars/159985870458322944/b50adff099924dd5e6b72d13f77eb9d7.webp?size=80" width=50>
+    <img src="./assets/lurkr.png" width=100>
+    <img src="./assets/mee6.png" width=100>
     <h3 align="center">The Mee6 and Lurkr Leveling system clone</h3>
 </p>
 
-# NetLevel Bot
+# NetLevel Bot (ALPHA RELEASE)
 
 NetLevel Bot is a powerful leveling Discord bot that uses discord.js version 14 as the main library to interact with the Discord API, and canvacord as the main library to create rank cards images.
 
@@ -36,10 +36,21 @@ This project has the similar leveling system as Mee6 and Lurkr, same formula and
         - Mee6
     - Editable commands message (since this is an open-source bot).
 
+### Special features:
+- Issues from commands will be saved in the database, readable and deletable.
+- Better user's leveling information command.
+
 ### Upcoming features:
 - Roles stacking method.
 - Other useful commands.
 - Better performance.
+
+# Preview
+
+<img src="./assets/pic2.png">
+<img src="./assets/pic3.png">
+<img src="./assets/pic4.png">
+<img src="./assets/pic1.png">
 
 # Requirements
 ## Dependencies:
@@ -71,8 +82,7 @@ This project has the similar leveling system as Mee6 and Lurkr, same formula and
 ```ts
 export default {
     developers: ['YOUR ACCOUNT ID'],
-    ownerId: 'YOUR ACCOUNT ID',
-    mainDeveloperId: 'THE DEVELOPER OF THE BOT ID',
+    ownerId: 'YOUR ACCOUNT ID'
 };
 ```
 
@@ -105,13 +115,14 @@ The Mee6 has an API that doesn't have a documentation yet, you can fetch some us
 https://mee6.xyz/api/plugins/levels/leaderboard/GUILD_ID
 ```
 
-- **page** (integer): The page of the leaderboard, similar like arrays index. By default, it's always **0**.
-- **limit** (integer): The limit of users to show on the JSON output, must be in this following condition: **0 <= X <= 1000**
+- **page** (integer): The page of the leaderboard, similar like indexes of an array. The default value is **0**.
+- **limit** (integer): The limit of users to show on the JSON output, must be in this following this condition: **𝑥 ∈ [0, 1000]**
 
 ```
 https://mee6.xyz/api/plugins/levels/leaderboard/GUILD_ID?page=0
 https://mee6.xyz/api/plugins/levels/leaderboard/GUILD_ID?limit=100
-https://mee6.xyz/api/plugins/levels/leaderboard/GUILD_ID?page=69&limit=420
+
+https://mee6.xyz/api/plugins/levels/leaderboard/GUILD_ID?page=20&limit=8
 ```
 
 Make sure to replace "**GUILD_ID**" with an actual server ID that Mee6 is invited on. If Mee6 is on the server but returns an error while fetching using it's API, you must enable the leaderboard to the public, which means anybody can see the users XP leaderboard.
@@ -154,6 +165,10 @@ Use the `/config` command. The string has 4 variables to use:
 - **{level}**: The new level achieved.
 
 Example command usage: **/config set `configuration`: "Set custom level up message" `string`: "GG {user}, you have reached level {level}!"**
+
+## How the non-role reward stacking system works?
+
+If the server's configuration has role rewards, and if a user reaches one of the levels in the role-rewards database, they'll earn the role and saves the role ID in the user's column (in the users database) as `lastRoleIdGiven` variable. If the user reaches another level that has different role reward and different level reward (level must be higher than the latest role reward level), the role from `lastRoleIdGiven`'s role ID will be removed, and then adds the new role, and saves the new role ID.
 
 # License
 **General Public License** v3.0 ([View](./LICENSE))

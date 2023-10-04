@@ -47,10 +47,7 @@ export default new NetLevelBotCommand({
                     });
                 } else if (user.bot) {
                     await interaction.followUp({
-                        content: user.toString() + ' is a bot.',
-                        allowedMentions: {
-                            parse: []
-                        }
+                        content: user.toString() + ' is a bot.'
                     });
                 } else { 
                     await interaction.followUp({

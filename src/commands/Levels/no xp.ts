@@ -51,7 +51,7 @@ export default new NetLevelBotCommand({
             });
 
             await interaction.followUp({
-                content: data.noXp ? `You will not be able to receive XP.` : `You will now be able to receive XP.`
+                content: data.noXp ? `You will not be able to receive XP.` : `You will be able now to receive XP, go grind again!`
             }).catch(null);
         } catch (err) {
             new InteractionError(interaction, err);

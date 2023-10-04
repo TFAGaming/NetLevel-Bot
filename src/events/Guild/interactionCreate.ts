@@ -26,7 +26,7 @@ export default new GatewayEventListener({
                     return;
                 };
 
-                if (options.mainDeveloperOnly && interaction.user.id !== config.mainDeveloperId) {
+                if (options.mainDeveloperOnly && interaction.user.id !== config.ownerId) {
                     await interaction.reply({
                         content: 'You are not the maintainer of **' + client.user?.username + '**.',
                         ephemeral: true
@@ -44,7 +44,7 @@ export default new GatewayEventListener({
                     return;
                 };
 
-                if (options.channelsOnly && interaction.user.id !== config.mainDeveloperId && !options.channelsOnly.includes(interaction.channel?.id || '')) {
+                if (options.channelsOnly && interaction.user.id !== config.ownerId && !options.channelsOnly.includes(interaction.channel?.id || '')) {
                     const mentionedChannels: string[] = [];
 
                     for (const channelId of options.channelsOnly) {
@@ -61,7 +61,7 @@ export default new GatewayEventListener({
                     return;
                 };
 
-                if (options.rolesOnly && interaction.user.id !== config.mainDeveloperId) {
+                if (options.rolesOnly && interaction.user.id !== config.ownerId) {
                     const member = interaction.guild.members.cache.get(interaction.user.id) as GuildMember;
 
                     const memberRoleIds = member.roles.cache.map((role) => role.id);

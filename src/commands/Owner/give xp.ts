@@ -45,6 +45,13 @@ export default new NetLevelBotCommand({
         await interaction.deferReply().catch(null);
 
         try {
+            if (user.bot) {
+                await interaction.followUp({
+                    content: user.toString() + ' is a bot.'
+                }).catch(null);
+
+                return;
+            };
 
             const data = await client.prisma.user.findFirst({
                 where: {
