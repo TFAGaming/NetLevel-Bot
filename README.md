@@ -36,6 +36,11 @@ This project has the similar leveling system as Mee6 and Lurkr, same formula and
         - Mee6
     - Editable commands message (since this is an open-source bot).
 
+### Upcoming features:
+- Roles stacking method.
+- Other useful commands.
+- Better performance.
+
 # Requirements
 ## Dependencies:
 
@@ -47,11 +52,11 @@ This project has the similar leveling system as Mee6 and Lurkr, same formula and
 - **dotenv** v^16.3.1
 - **uuid** v^9.0.0
 
-> **Warning**
-> The package **canvacord** has it's source installed on this project, so avoid to install it via `npm install` command to avoid the latest typings errors.
+> **Important**
+> The package **canvacord** has it's source installed on this project, so avoid to install it via `npm install` command to bypass the latest typings errors.
 
 > **Warning**
-> Make sure that the package **chalk** has the version **v2.4.2** installed because this bot uses CommonJS modules.
+> Make sure that the package **chalk** has the version **v2.4.2** installed because this bot uses CommonJS modules, because the latest version uses ES6 modules.
 
 ## Dev-dependencies
 - **@types/uuid** v^9.0.3
@@ -117,10 +122,12 @@ Make sure to replace "**GUILD_ID**" with an actual server ID that Mee6 is invite
 > **Note**
 > You can bypass the Mee6 API rate-limit and bans by changing your IP, but it's not recommended. Here is how to bypass:
 > - Open your browser tab and search "What's my IP address", and then don't close the tab.
-> - Use one of the methods below, and open another tab with the same search as the previous tab, if the IPs are different, you're good to go!
+> - Use one of the methods below, and then open another tab with the same search as the previous tab, if the IPs are different from the previous tab and the new one, you're good to go!
 >   - Install a free or premium VPN.
 >   - If you own a dynamic router, you can restart it for a different IP.
->   - Pay for some internet on your phone, open Hotpost, and connect to it with your pc.
+>   - Pay for some internet on your phone, open Hotspot, and connect to it with your pc.
+>
+> To avoid the bans and rate-limits, just do not abuse the `/import` command. Else, you need to manipulate the IPs to bypass.
 
 ## What's the Mee6 leveling formula?
 
@@ -137,6 +144,16 @@ The function:
 ```
 
 The **𝑥** represents the level of a user, must be following in this condition: **𝑥 ∈ [0, +∞[**
+
+## How to set the custom level up message?
+
+Use the `/config` command. The string has 4 variables to use:
+- **{user}**: The user mention.
+- **{userId}**: The user ID.
+- **{username}**: The user's username.
+- **{level}**: The new level achieved.
+
+Example command usage: **/config set `configuration`: "Set custom level up message" `string`: "GG {user}, you have reached level {level}!"**
 
 # License
 **General Public License** v3.0 ([View](./LICENSE))
