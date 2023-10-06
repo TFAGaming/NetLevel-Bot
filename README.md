@@ -4,7 +4,7 @@
     <h3 align="center">The Mee6 and Lurkr Leveling system clone</h3>
 </p>
 
-# NetLevel Bot (ALPHA RELEASE)
+# NetLevel Bot (Alpha v0.2.0)
 
 NetLevel Bot is a powerful leveling Discord bot that uses discord.js version 14 as the main library to interact with the Discord API, and canvacord as the main library to create rank cards images.
 
@@ -21,7 +21,7 @@ This project has the similar leveling system as Mee6 and Lurkr, same formula and
     - Useful commands and features of leveling system are free, but has some limits (5 max no xp roles... etc).
     - Role-rewards XP is free, but has some limits (30 roles only).
     - Premium is cheap.
-    - Import XP from a specific server, allowed bots to import from:
+    - Import XP from a specific server. Allowed bots to import from:
         - Mee6
         - Amari
         - Atlas
@@ -37,13 +37,9 @@ This project has the similar leveling system as Mee6 and Lurkr, same formula and
     - Editable commands message (since this is an open-source bot).
 
 ### Special features:
-- Issues from commands will be saved in the database, readable and deletable.
+- Issues/bugs from commands will be saved in the database so you can fix them later.
 - Better user's leveling information command.
-
-### Upcoming features:
-- Roles stacking method.
-- Other useful commands.
-- Better performance.
+- No website needed for server configuration, only commands needed.
 
 # Preview
 
@@ -72,6 +68,7 @@ This project has the similar leveling system as Mee6 and Lurkr, same formula and
 ## Dev-dependencies
 - **@types/uuid** v^9.0.3
 - **prisma** v^5.2.0
+- **typescript** v^5.2.2
 
 # How to start the bot
 
@@ -96,8 +93,9 @@ CLIENT_ID = "YOUR BOT ID"
 DATABASE_URL = "file:./dev.db"
 ```
 
-5. Compile the TypeScript files and then run the bot: `npm run build`
-6. Enjoy! :)
+5. Create a new migration for Prisma: `npx prisma migrate dev --name init`
+6. Compile the TypeScript files and then run the bot: `npm run build`
+7. Enjoy! :)
 
 # Frequently Asked Questions (FAQs):
 
@@ -166,9 +164,9 @@ Use the `/config` command. The string has 4 variables to use:
 
 Example command usage: **/config set `configuration`: "Set custom level up message" `string`: "GG {user}, you have reached level {level}!"**
 
-## How the non-role reward stacking system works?
+## How to set the bot's database for a server by default?
 
-If the server's configuration has role rewards, and if a user reaches one of the levels in the role-rewards database, they'll earn the role and saves the role ID in the user's column (in the users database) as `lastRoleIdGiven` variable. If the user reaches another level that has different role reward and different level reward (level must be higher than the latest role reward level), the role from `lastRoleIdGiven`'s role ID will be removed, and then adds the new role, and saves the new role ID.
+The command is `/factory reset`, it's a very dangerous command because it doesn't create a backup for users XP, which means they're lost forever.
 
 # License
 **General Public License** v3.0 ([View](./LICENSE))

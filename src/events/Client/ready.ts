@@ -9,6 +9,12 @@ export default new GatewayEventListener({
         setInterval(() => {
             try {
                 client.guilds.cache.forEach(async (guild) => {
+                    const data = await _client.prisma.guild.findFirst({
+                        where: {
+                            guildId: guild.id
+                        }
+                    });
+
                     const users = await _client.prisma.user.findMany({
                         where: {
                             guildId: guild.id
@@ -31,6 +37,10 @@ export default new GatewayEventListener({
                                 rank: rank
                             }
                         });
+
+                        if (rank <= 1 && data?.topRankedRoleId) {
+                            await guild.members.cache.get(user.userId)?.roles?.add(data.topRankedRoleId).catch(null);
+                        };
 
                         rank++;
                     };

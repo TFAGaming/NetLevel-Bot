@@ -6,8 +6,8 @@ import util from 'util';
 export default new NetLevelBotCommand({
     type: 1,
     structure: {
-        name: 'database',
-        description: 'View the saved database for your server.',
+        name: 'configuration',
+        description: 'View the saved configuration for your server.',
         options: [],
         dm_permission: false
     },

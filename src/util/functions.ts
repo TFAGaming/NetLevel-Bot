@@ -103,24 +103,3 @@ export const fetchMee6Leaderboard = async (guildId: string, data?: string) => {
 
     return res;
 };
-
-/*
-export const getLeaderboardPage = async (limit: number = 1000, page: number = 0) => {
-    const res = await axiosFetch(`limit=${limit}&page=${page}`);
-
-    const players = res.data?.players;
-
-    return players.map((user: any, index: number) => {
-        const { id, level, message_count: messageCount } = user;
-        const [userXp, levelXp, totalXp] = user.detailed_xp;
-
-        return {
-            messageCount,
-            id,
-            xp: { userXp, levelXp, totalXp },
-            level,
-            rank: (limit * page) + index + 1
-        };
-    });
-};
-*/

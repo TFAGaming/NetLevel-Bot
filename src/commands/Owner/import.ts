@@ -1,6 +1,5 @@
 import { ApplicationCommandOptionType } from "discord.js";
 import { NetLevelBotCommand } from "../../class/Builders";
-import { InteractionError } from "../../util/classes";
 import { fetchMee6Leaderboard, wait } from "../../util/functions";
 
 export default new NetLevelBotCommand({
@@ -38,7 +37,7 @@ export default new NetLevelBotCommand({
         try {
 
             await interaction.followUp({
-                content: 'Importing from Mee6 database... (**0%**)\n\nThis command imports 1000 user\'s data from Mee6 database in every 5 seconds, so this might take a while by each page.'
+                content: 'Importing from Mee6 database... (**0%**)'
             }).catch(null);
 
             let page = 0;
@@ -70,14 +69,14 @@ export default new NetLevelBotCommand({
                 page++;
 
                 await interaction.editReply({
-                    content: `Importing from Mee6 database... (**${(((page) / limit) * 100).toFixed(1)}%**)\n\nThis command imports 1000 user\'s data from Mee6 database in every 5 seconds, so this might take a while by each page.`
+                    content: `Importing from Mee6 database... (**${(((page) / limit) * 100).toFixed(1)}%**)`
                 }).catch(null);    
 
                 await wait(5000);
             };
 
             await interaction.editReply({
-                content: `Successfully imported **${arr.length}** user\'s XP, saving into the database...\n\nThis might take up to 15 minutes, so please wait!`
+                content: `Successfully imported **${arr.length}** user\'s XP, saving into the database...`
             }).catch(null); 
 
             await client.prisma.user.deleteMany({
@@ -107,7 +106,7 @@ export default new NetLevelBotCommand({
 
         } catch (err) {
             await interaction.editReply({
-                content: `Unable to import from Mee6 database or save the users XP into the database, please try again.\n\nThis is might caused the error:\n1. Viewing the leaderboard in Mee6 Leaderboard plugin is private (disabled).\n2. The prisma database is full or not well-formatted as SQL.\n3. Database connection error.`
+                content: `Unable to import from the bot's API. Please make sure that I'm not rate-limited, the leaderboard is public, and the API isn't down.`
             }).catch(null); 
         };
 

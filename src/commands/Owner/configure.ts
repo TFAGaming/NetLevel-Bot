@@ -1,11 +1,11 @@
-import { ApplicationCommandOptionType, PermissionFlagsBits } from "discord.js";
+import { ActionRowBuilder, ApplicationCommandOptionType, ButtonBuilder, ButtonStyle, ComponentType, PermissionFlagsBits } from "discord.js";
 import { NetLevelBotCommand } from "../../class/Builders";
 import { InteractionError } from "../../util/classes";
 
 export default new NetLevelBotCommand({
     type: 1,
     structure: {
-        name: 'config',
+        name: 'configure',
         description: 'Configure the bot for the server.',
         options: [
             {
@@ -25,12 +25,14 @@ export default new NetLevelBotCommand({
                             { name: 'Set XP rate', value: 'xprate' },
                             { name: 'Set level up message channel', value: 'levelupchannel' },
                             { name: 'Set custom level up message', value: 'levelupmessage' },
+                            { name: 'Set top ranked user role', value: 'toprankrole' },
+                            { name: 'Set stacking roles', value: 'stackingroles' },
                             { name: 'Add role reward', value: 'addrewardrole' },
                             { name: 'Remove role reward', value: 'removerewardrole' },
                             { name: 'Add no XP channel', value: 'addnoxpchannel' },
                             { name: 'Remove no XP channel', value: 'removenoxpchannel' },
                             { name: 'Add no XP role', value: 'addnoxprole' },
-                            { name: 'Remove no XP role', value: 'removenoxprole' },
+                            { name: 'Remove no XP role', value: 'removenoxprole' }
                         ],
                         required: true
                     },
@@ -114,7 +116,9 @@ export default new NetLevelBotCommand({
                                 noXpRoles: data?.noXpRoles,
                                 xpRate: data?.xpRate,
                                 levelUpMessage: data?.levelUpMessage,
-                                levelUpChannel: data?.levelUpChannel
+                                levelUpChannel: data?.levelUpChannel,
+                                topRankedRoleId: data?.topRankedRoleId,
+                                stackingRoles: data?.stackingRoles
                             }
                         });
 
@@ -250,6 +254,34 @@ export default new NetLevelBotCommand({
                             };
 
                             data.levelUpChannel = channel.id;
+
+                            save();
+
+                            break;
+                        };
+
+                        case 'toprankrole': {
+                            if (!role) {
+                                await missingOption('Role');
+
+                                return;
+                            };
+
+                            data.topRankedRoleId = role.id;
+
+                            save();
+
+                            break;
+                        };
+
+                        case 'stackingroles': {
+                            if (boolean === null) {
+                                await missingOption('Boolean');
+
+                                return;
+                            };
+
+                            data.stackingRoles = boolean;
 
                             save();
 
@@ -434,32 +466,101 @@ export default new NetLevelBotCommand({
             };
 
             case 'reset': {
-                await client.prisma.guild.updateMany({
-                    where: {
-                        guildId: interaction.guild?.id
-                    },
-                    data: {
-                        rankCardBackgroundURL: null,
-                        rankCardLevelColor: null,
-                        rankCardRankColor: null,
-                        rankCardProgressbarColor: null,
-                        noXpChannels: null,
-                        noXpRoles: null,
-                        xpRate: null,
-                        levelUpMessage: null,
-                        levelUpChannel: null
-                    }
-                });
-
-                await client.prisma.role.deleteMany({
-                    where: {
-                        guildId: interaction.guild.id,
-                    }
-                });
-
-                await interaction.followUp({
-                    content: 'The plugin **levels** has been reset.'
+                const buttons = [
+                    new ButtonBuilder()
+                        .setCustomId('yes-' + interaction.id)
+                        .setStyle(ButtonStyle.Primary)
+                        .setLabel('Yes'),
+                    new ButtonBuilder()
+                        .setCustomId('no-' + interaction.id)
+                        .setStyle(ButtonStyle.Secondary)
+                        .setLabel('No'),
+                ];
+            
+                await interaction.editReply({
+                    content: 'Are you sure that you want to reset the configuration data by default?',
+                    components: [
+                        new ActionRowBuilder<ButtonBuilder>()
+                            .addComponents(
+                                buttons
+                            )
+                    ]
                 }).catch(null);
+            
+                const collector = interaction.channel?.createMessageComponentCollector({
+                    componentType: ComponentType.Button,
+                    time: 15000
+                });
+            
+                collector?.on('collect', async (i) => {
+                    if (i.user.id !== interaction.user.id) {
+                        await i.reply({
+                            content: 'You are not the author of this interaction.',
+                            ephemeral: true
+                        }).catch(null);
+            
+                        return;
+                    };
+            
+                    const split = i.customId.split('-');
+
+                    if (split[1] !== interaction.id) return;
+            
+                    if (split[0] === 'yes') {
+                        collector.stop();
+
+                        await i.deferReply();
+
+                        await client.prisma.guild.updateMany({
+                            where: {
+                                guildId: interaction.guild?.id
+                            },
+                            data: {
+                                rankCardBackgroundURL: null,
+                                rankCardLevelColor: null,
+                                rankCardRankColor: null,
+                                rankCardProgressbarColor: null,
+                                noXpChannels: null,
+                                noXpRoles: null,
+                                xpRate: null,
+                                levelUpMessage: null,
+                                levelUpChannel: null
+                            }
+                        });
+        
+                        await client.prisma.role.deleteMany({
+                            where: {
+                                guildId: interaction.guild?.id,
+                            }
+                        });
+        
+                        await i.editReply({
+                            content: 'The configuration has been reset by default.'
+                        }).catch(null);
+    
+                    } else if (split[0] === 'no') {
+                        collector.stop();
+
+                        await i.reply({
+                            content: 'The request has been cancelled.'
+                        }).catch(null);
+                    };
+                });
+
+                collector?.on('end', async () => {
+                    await interaction.editReply({
+                        components: [
+                            new ActionRowBuilder<ButtonBuilder>()
+                            .addComponents(
+                                buttons.map((button) =>
+                                    button
+                                        .setStyle(ButtonStyle.Secondary)
+                                        .setDisabled(true)
+                                )
+                            )
+                        ]
+                    }).catch(null);
+                });
 
                 break;
             };

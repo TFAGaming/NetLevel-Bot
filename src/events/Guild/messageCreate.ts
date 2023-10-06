@@ -21,6 +21,8 @@ export default new GatewayEventListener({
 
         if (checkspam && checkspam > Date.now()) return;
 
+        if (message.content.length < 3) return;
+
         antispam.delete(message.author.id);
 
         antispam.set(message.author.id, Date.now() + 500);
@@ -113,7 +115,7 @@ export default new GatewayEventListener({
                 }
             });
 
-            await checkRoleRewards(client, message.guild.id, message.author.id, calculated.lvl);
+            await checkRoleRewards(client, message.guild.id, message.author.id, calculated.lvl, guild?.stackingRoles ? true : false);
 
             return;
         };
@@ -156,7 +158,7 @@ const calculateUserLevel = async (lvl: number, xp: number): Promise<{ lvl: numbe
     };
 };
 
-const checkRoleRewards = async (client: ExtendedClient, guildId: string, userId: string, newLevel: number) => {
+const checkRoleRewards = async (client: ExtendedClient, guildId: string, userId: string, newLevel: number, stacking?: boolean) => {
     const roleRewards = await client.prisma.role.findMany({
         where: {
             guildId: guildId
@@ -183,7 +185,7 @@ const checkRoleRewards = async (client: ExtendedClient, guildId: string, userId:
     if (reward) {
         const oldRoleGiven = guild.roles.cache.get(data?.lastRoleIdGiven ?? '');
 
-        if (oldRoleGiven) {
+        if (oldRoleGiven && !stacking) {
             await member.roles.remove(oldRoleGiven.id).catch(null); 
         };
 

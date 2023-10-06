@@ -34,7 +34,7 @@ model User {
 }
 
 model Guild {
-  id                       Int     @id @default(autoincrement())
+  id                       Int      @id @default(autoincrement())
   guildId                  String
   rankCardBackgroundURL    String?
   rankCardLevelColor       String?
@@ -45,6 +45,8 @@ model Guild {
   xpRate                   Int?
   levelUpMessage           String?
   levelUpChannel           String?
+  topRankedRoleId          String?
+  stackingRoles            Boolean?
 }
 
 model Role {
