@@ -17,10 +17,10 @@ export const formatNumber = (num: number, precision: number = 1) => {
         const formatted = (num / found.threshold).toFixed(precision) + found.suffix;
 
         return formatted;
-    };
+    }
 
     return num.toString();
-};
+}
 
 export const stringProgressBar = (total: number, current: number, size: number = 20, line: string = '▬', slider: string = '🔘') => {
     if (current > total) {
@@ -38,26 +38,26 @@ export const stringProgressBar = (total: number, current: number, size: number =
         const calculated = percentage * 100;
 
         return [bar, calculated];
-    };
-};
+    }
+}
 
 export const countElements = (arr: string[]): Record<string, number> => {
-    const countMap: Record<string, number> = {};
+    const countMap: Record<string, number> = {}
 
     for (const element of arr) {
         if (countMap[element]) {
             countMap[element]++;
         } else {
             countMap[element] = 1;
-        };
-    };
+        }
+    }
 
     const sortedResult = Object.fromEntries(
         Object.entries(countMap).sort(([, countA], [, countB]) => countB - countA)
     );
 
     return sortedResult;
-};
+}
 
 export const scramble = (string: string) => {
     let splitted = string.split("");
@@ -67,18 +67,18 @@ export const scramble = (string: string) => {
         let d = splitted[b];
         splitted[b] = splitted[c];
         splitted[c] = d
-    };
+    }
 
     return splitted.join('');
-};
+}
 
 export const findElementsNotInArray = <T>(arr1: T[], arr2: T[]): T[] => {
     return arr1.filter((item) => !arr2.includes(item));
-};
+}
 
 export const randomFromArray = <T>(array: T[]): T => {
     return array[Math.floor(Math.random() * array.length)];
-};
+}
 
 export const randomFromArrayWithExclusion = (sourceArray: string[], exclusionArray: string[]): string => {
     const availableOptions = sourceArray.filter((item) => !exclusionArray.includes(item));
@@ -88,18 +88,18 @@ export const randomFromArrayWithExclusion = (sourceArray: string[], exclusionArr
     const randomIndex = Math.floor(Math.random() * availableOptions.length);
 
     return availableOptions[randomIndex];
-};
+}
 
 export const time = (ms: number, style?: TimestampStylesString) => {
     return `<t:${Math.floor(ms / 1000)}${style ? `:${style}>` : '>'}`;
-};
+}
 
 export const wait = async (duration: number) => {
     return new Promise((res) => setTimeout(res, duration));
-};
+}
 
 export const fetchMee6Leaderboard = async (guildId: string, data?: string) => {
     const res = await axios.get(`https://mee6.xyz/api/plugins/levels/leaderboard/${guildId}${data ? `?${data}` : ''}`);
 
     return res;
-};
+}

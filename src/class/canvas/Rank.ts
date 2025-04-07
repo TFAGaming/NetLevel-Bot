@@ -81,42 +81,42 @@ export class Rank {
                 data: 0,
                 color: "#FFFFFF"
             }
-        };
+        }
 
         this.registerFonts();
-    };
+    }
 
     registerFonts() {
         Canvas.GlobalFonts.registerFromPath('./src/fonts/Inconsolata.tff', 'Inconsolata');
 
         return this;
-    };
+    }
 
     renderEmojis(apply = false) {
         this.data.renderEmojis = !!apply;
 
         return this;
-    };
+    }
 
     setFontSize(size: number) {
         this.data.fontSize = size;
 
         return this;
-    };
+    }
 
     setUsername(name: string, color = "#FFFFFF") {
         this.data.username.name = name;
         this.data.username.color = color && typeof color === "string" ? color : "#FFFFFF";
 
         return this;
-    };
+    }
 
     setDiscriminator(discriminator: string | number | null, color = "rgba(255, 255, 255, 0.4)") {
         this.data.discriminator.discrim = discriminator == null ? null : !Number.isNaN(discriminator) && String(discriminator).length === 4 ? `#${discriminator}` : String(discriminator).startsWith('@') ? discriminator : `@${discriminator}`;
         this.data.discriminator.color = color && typeof color === "string" ? color : "rgba(255, 255, 255, 0.4)";
 
         return this;
-    };
+    }
 
     setProgressBar(color: string | string[], fillType = "COLOR", rounded = true) {
 
@@ -135,16 +135,16 @@ export class Rank {
                 break;
             default:
                 throw new Error(`Unsupported progressbar type "${fillType}"!`);
-        };
+        }
 
         return this;
-    };
+    }
 
     setProgressBarTrack(color: string) {
         this.data.progressBar.track.color = color;
 
         return this;
-    };
+    }
 
     setOverlay(color: string, level = 0.5, display = true) {
         this.data.overlay.color = color;
@@ -152,21 +152,21 @@ export class Rank {
         this.data.overlay.level = level && typeof level === "number" ? level : 0.5;
 
         return this;
-    };
+    }
 
     setRequiredXP(data: number, color = "#FFFFFF") {
         this.data.requiredXP.data = data;
         this.data.requiredXP.color = color && typeof color === "string" ? color : "#FFFFFF";
 
         return this;
-    };
+    }
 
     setMinXP(data: number, color = "#FFFFFF") {
         this.data.minXP.data = data;
         this.data.minXP.color = color && typeof color === "string" ? color : "#FFFFFF";
 
         return this;
-    };
+    }
 
 
     setCurrentXP(data: number, color = "#FFFFFF") {
@@ -174,7 +174,7 @@ export class Rank {
         this.data.currentXP.color = color && typeof color === "string" ? color : "#FFFFFF";
 
         return this;
-    };
+    }
 
     setRank(data: number, text = "RANK", display = true) {
         this.data.rank.data = data;
@@ -183,21 +183,21 @@ export class Rank {
         this.data.rank.displayText = text;
 
         return this;
-    };
+    }
 
     setRankColor(text = "#FFFFFF", number = "#FFFFFF") {
         this.data.rank.textColor = text;
         this.data.rank.color = number;
 
         return this;
-    };
+    }
 
     setLevelColor(text = "#FFFFFF", number = "#FFFFFF") {
         this.data.level.textColor = text;
         this.data.level.color = number;
 
         return this;
-    };
+    }
 
     setLevel(data: number, text = "LEVEL", display = true) {
         this.data.level.data = data;
@@ -205,13 +205,13 @@ export class Rank {
         this.data.level.displayText = text;
 
         return this;
-    };
+    }
 
     setCustomStatusColor(color: string) {
         this.data.status.color = color;
 
         return this;
-    };
+    }
 
     setStatus(status: PresenceStatus | 'streaming', circle = false, width: number | boolean = 5) {
         switch (status) {
@@ -244,7 +244,7 @@ export class Rank {
         if ([true, false].includes(circle)) this.data.status.circle = circle;
 
         return this;
-    };
+    }
 
     setBackground(type: 'COLOR' | 'IMAGE', data: string | Buffer) {
         switch (type) {
@@ -256,22 +256,22 @@ export class Rank {
                 this.data.background.type = "image";
                 this.data.background.image = data;
                 break;
-        };
+        }
 
         return this;
-    };
+    }
 
     setAvatar(data: string | Buffer) {
         this.data.avatar.source = data;
 
         return this;
-    };
+    }
 
     async build(ops: { fontX?: string, fontY?: string } = { fontX: "MANROPE_BOLD, NOTO_COLOR_EMOJI", fontY: "MANROPE_BOLD, NOTO_COLOR_EMOJI" }) {
         let bg = null;
 
         if (this.data.background.type === "image") bg = await Canvas.loadImage(this.data.background.image);
-        
+
         let avatar = await Canvas.loadImage(this.data.avatar.source);
 
         // create canvas instance
@@ -284,14 +284,14 @@ export class Rank {
         } else {
             ctx.fillStyle = this.data.background.image;
             ctx.fillRect(0, 0, canvas.width, canvas.height);
-        };
+        }
 
         // add overlay
         if (!!this.data.overlay.display) {
             ctx.globalAlpha = this.data.overlay.level || 1;
             ctx.fillStyle = this.data.overlay.color;
             ctx.fillRect(20, 20, canvas.width - 40, canvas.height - 40);
-        };
+        }
 
         // reset transparency
         ctx.globalAlpha = 1;
@@ -325,10 +325,10 @@ export class Rank {
                 ctx.textAlign = "center";
 
                 ctx.fillText(discrim, 320, 170);
-            };
+            }
 
             ctx.restore();
-        };
+        }
 
         // fill level
         let levelText = '-';
@@ -340,7 +340,7 @@ export class Rank {
             ctx.textAlign = "start";
 
             ctx.fillText(levelText, canvas.width - (ctx.measureText(levelText).width * 3), 82);
-        };
+        }
 
         // fill rank
         if (this.data.rank.display && !isNaN(this.data.rank.data)) {
@@ -349,7 +349,7 @@ export class Rank {
             ctx.fillStyle = this.data.rank.textColor;
             ctx.textAlign = "start";
             ctx.fillText(rankText, canvas.width - (ctx.measureText(levelText).width * 1.5), 82);
-        };
+        }
 
         // show progress
         ctx.font = `bold 30px ${ops.fontX}`;
@@ -385,7 +385,7 @@ export class Rank {
                 ctx.fillStyle = gradientContext;
             } else {
                 ctx.fillStyle = this.data.progressBar.bar.color;
-            };
+            }
 
             // progress bar
             ctx.arc(257 + 18.5, 147.5 + 18.5 + 36.25, 18.5, 1.5 * Math.PI, 0.5 * Math.PI, true);
@@ -404,7 +404,7 @@ export class Rank {
             ctx.strokeStyle = this.data.progressBar.track.color;
             ctx.lineWidth = 7;
             ctx.strokeRect(this.data.progressBar.x, this.data.progressBar.y, this.data.progressBar.width, this.data.progressBar.height);
-        };
+        }
 
         ctx.save();
 
@@ -431,10 +431,10 @@ export class Rank {
             ctx.strokeStyle = this.data.status.color;
             ctx.lineWidth = this.data.status.width;
             ctx.stroke();
-        };
+        }
 
         return canvas.encode("png");
-    };
+    }
 
     get _calculateProgress() {
         const cx = this.data.currentXP.data;
@@ -455,6 +455,5 @@ export class Rank {
         let width = (cx * 615) / rx;
         if (width > this.data.progressBar.width) width = this.data.progressBar.width;
         return parseInt(width.toString()) || 0;
-    };
-
-};
+    }
+}

@@ -11,15 +11,17 @@
   "license": "GPL-3.0",
   "dependencies": {
     "@napi-rs/canvas": "^0.1.44",
-    "@prisma/client": "^5.2.0",
-    "axios": "^1.4.0",
+    "@prisma/client": "^5.22.0",
+    "axios": "^1.8.4",
     "chalk": "^2.4.2",
-    "discord.js": "^14.13.0",
+    "discord.js": "^14.18.0",
     "dotenv": "^16.3.1",
     "uuid": "^9.0.0"
   },
   "devDependencies": {
-    "@types/uuid": "^9.0.3",
-    "prisma": "^5.2.0"
+    "@discordjs/util": "^1.1.1",
+    "@types/uuid": "^9.0.8",
+    "prisma": "^5.22.0",
+    "undici": "^7.7.0"
   }
 }

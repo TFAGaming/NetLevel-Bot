@@ -69,7 +69,7 @@ export default new NetLevelBotCommand({
                         }).catch(null);
 
                         return;
-                    };
+                    }
 
                     await interaction.followUp({
                         content: `**UUID**: ${data.uuid}\n**Author**: <@${data.authorId}>\n**Issue ID**: ${data.id}\n**Error**:`,
@@ -84,7 +84,7 @@ export default new NetLevelBotCommand({
                     }).catch(null);
 
                     break;
-                };
+                }
 
                 case 'delete': {
                     const uuid = interaction.options.getString('uuid', true);
@@ -102,7 +102,7 @@ export default new NetLevelBotCommand({
                         }).catch(null);
 
                         return;
-                    };
+                    }
 
                     await client.prisma.issue.deleteMany({
                         where: {
@@ -116,7 +116,7 @@ export default new NetLevelBotCommand({
                     }).catch(null);
 
                     break;
-                };
+                }
 
                 case 'purge': {
                     await client.prisma.issue.deleteMany({
@@ -130,11 +130,11 @@ export default new NetLevelBotCommand({
                     }).catch(null);
 
                     break;
-                };
-            };
+                }
+            }
         } catch (err) {
             console.error(err); // ← Issues shouldn't be saved from developers commands.
-        };
+        }
 
     }
 });

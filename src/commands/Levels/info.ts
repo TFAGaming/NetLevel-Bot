@@ -33,7 +33,7 @@ export default new NetLevelBotCommand({
                 }).catch(null);
 
                 return;
-            };
+            }
 
             const data = await client.prisma.user.findFirst({
                 where: {
@@ -51,7 +51,7 @@ export default new NetLevelBotCommand({
                 });
 
                 return;
-            };
+            }
 
             const [progressString] = stringProgressBar(data.levelXp, data.xp);
 
@@ -82,7 +82,7 @@ export default new NetLevelBotCommand({
 
         } catch (err: any) {
             new InteractionError(interaction, err);
-        };
+        }
 
     }
 });

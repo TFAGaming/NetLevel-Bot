@@ -40,17 +40,17 @@ export default new GatewayEventListener({
 
                         if (rank <= 1 && data?.topRankedRoleId) {
                             await guild.members.cache.get(user.userId)?.roles?.add(data.topRankedRoleId).catch(null);
-                        };
+                        }
 
                         rank++;
-                    };
+                    }
 
                 });
 
                 console.log('Ranks has been updated.');
             } catch {
                 console.warn('Failed to update ranks.');
-            };
+            }
         }, 30000);
 
         client.guilds.cache.forEach(async (guild) => {
@@ -66,7 +66,7 @@ export default new GatewayEventListener({
                         guildId: guild.id
                     }
                 });
-            } catch { };
+            } catch { }
         });
 
     }

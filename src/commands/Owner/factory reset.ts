@@ -60,7 +60,7 @@ export default new NetLevelBotCommand({
                     }).catch(null);
 
                     return;
-                };
+                }
 
                 const split = i.customId.split('-');
 
@@ -81,13 +81,13 @@ export default new NetLevelBotCommand({
                             guildId: interaction.guild?.id as string
                         }
                     });
-        
+
                     await client.prisma.guild.create({
                         data: {
                             guildId: interaction.guild?.id as string
                         }
                     });
-        
+
                     await client.prisma.role.deleteMany({
                         where: {
                             guildId: interaction.guild?.id as string
@@ -104,7 +104,7 @@ export default new NetLevelBotCommand({
                     await i.reply({
                         content: 'The request has been cancelled.'
                     }).catch(null);
-                };
+                }
             });
 
             collector?.on('end', async () => {
@@ -122,9 +122,9 @@ export default new NetLevelBotCommand({
                 }).catch(null);
             });
 
-    } catch(err) {
-        new InteractionError(interaction, err);
-    };
+        } catch (err) {
+            new InteractionError(interaction, err);
+        }
 
-}
+    }
 });

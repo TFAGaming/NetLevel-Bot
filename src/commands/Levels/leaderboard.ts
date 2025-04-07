@@ -44,7 +44,7 @@ export default new NetLevelBotCommand({
             }).catch(null);
         } catch (err) {
             new InteractionError(interaction, err);
-        };
+        }
 
     }
 });

@@ -42,7 +42,7 @@ export class ExtendedClient extends Client {
                 status: 'online'
             }
         });
-    };
+    }
 
     public async load() {
         for (let dir of readdirSync('./dist/commands/')) {
@@ -58,26 +58,26 @@ export class ExtendedClient extends Client {
                 if (data) {
                     data.push(module.structure.name);
                     this.categories.set(dir, data);
-                };
+                }
 
                 console.log('Loaded new command: ' + file);
-            };
-        };
+            }
+        }
 
         for (let dir of readdirSync('./dist/events/')) {
             for (let file of readdirSync('./dist/events/' + dir + '/').filter((f) => f.endsWith('.js'))) {
                 const module: EventStructure<any, keyof ClientEvents> = require('../events/' + dir + '/' + file).default;
 
                 if (module.once) {
-                    this.once(module.event, (...args) => module.callback(this,...args));
+                    this.once(module.event, (...args) => module.callback(this, ...args));
                 } else {
                     this.on(module.event, (...args) => module.callback(this, ...args));
-                };
+                }
 
                 console.log('Loaded new event: ' + file);
-            };
-        };
-    };
+            }
+        }
+    }
 
     public async deploy() {
         try {
@@ -94,14 +94,14 @@ export class ExtendedClient extends Client {
             console.log('Loaded application commands.');
         } catch {
             console.log('Unable to load application commands.');
-        };
-    };
+        }
+    }
 
     public async start() {
         this.load();
         await this.login(process.env.CLIENT_TOKEN);
         await this.deploy();
 
-        
-    };
-};
+
+    }
+}

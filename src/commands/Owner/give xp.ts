@@ -51,7 +51,7 @@ export default new NetLevelBotCommand({
                 }).catch(null);
 
                 return;
-            };
+            }
 
             const data = await client.prisma.user.findFirst({
                 where: {
@@ -66,7 +66,7 @@ export default new NetLevelBotCommand({
                 }).catch(null);
 
                 return;
-            };
+            }
 
             const newTotalXP = data.totalXp + amount;
 
@@ -76,7 +76,7 @@ export default new NetLevelBotCommand({
             while (newTotalXP >= requiredXP) {
                 newLevel++;
                 requiredXP = 5 * (newLevel ** 2) + 50 * newLevel + 100;
-            };
+            }
 
             const remainingXP = requiredXP - newTotalXP;
 
@@ -99,7 +99,7 @@ export default new NetLevelBotCommand({
 
         } catch (err) {
             new InteractionError(interaction, err);
-        };
+        }
 
     }
 });

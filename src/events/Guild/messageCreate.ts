@@ -7,7 +7,7 @@ const levelingConfig = {
         return Math.random() * (max - min) + min;
     },
     xpRate: 1.0
-};
+}
 
 const antispam = new Map<string, number>();
 
@@ -35,11 +35,11 @@ export default new GatewayEventListener({
 
         if (guild?.noXpChannels?.split(',')?.includes(message.channel.id)) {
             return;
-        };
+        }
 
         if (guild?.noXpRoles?.split(',')?.some((role) => message.member?.roles.cache.has(role))) {
             return;
-        };
+        }
 
         const data = await client.prisma.user.findFirst({
             where: {
@@ -76,7 +76,7 @@ export default new GatewayEventListener({
             }, 2000);
 
             return;
-        };
+        }
 
         const calculated = await calculateUserLevel(data.level, data.xp);
         const xpPerMessage = levelingConfig.xpPerMessage(15, 25) * (guild?.xpRate ? guild.xpRate : levelingConfig.xpRate);
@@ -118,7 +118,7 @@ export default new GatewayEventListener({
             await checkRoleRewards(client, message.guild.id, message.author.id, calculated.lvl, guild?.stackingRoles ? true : false);
 
             return;
-        };
+        }
 
         await client.prisma.user.updateMany({
             where: {
@@ -149,14 +149,14 @@ const calculateUserLevel = async (lvl: number, xp: number): Promise<{ lvl: numbe
         return {
             lvl: lvl + 1,
             requiredXp: requiredXP
-        };
+        }
     } else {
         return {
             lvl: lvl,
             requiredXp: requiredXP
-        };
-    };
-};
+        }
+    }
+}
 
 const checkRoleRewards = async (client: ExtendedClient, guildId: string, userId: string, newLevel: number, stacking?: boolean) => {
     const roleRewards = await client.prisma.role.findMany({
@@ -186,8 +186,8 @@ const checkRoleRewards = async (client: ExtendedClient, guildId: string, userId:
         const oldRoleGiven = guild.roles.cache.get(data?.lastRoleIdGiven ?? '');
 
         if (oldRoleGiven && !stacking) {
-            await member.roles.remove(oldRoleGiven.id).catch(null); 
-        };
+            await member.roles.remove(oldRoleGiven.id).catch(null);
+        }
 
         await member.roles.add(reward.roleId).catch(null);
 
@@ -200,5 +200,5 @@ const checkRoleRewards = async (client: ExtendedClient, guildId: string, userId:
                 lastRoleIdGiven: reward.roleId
             }
         });
-    };
-};
+    }
+}

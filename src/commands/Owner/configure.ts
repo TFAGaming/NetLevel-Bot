@@ -94,13 +94,13 @@ export default new NetLevelBotCommand({
                         await interaction.followUp({
                             content: string
                         }).catch(null);
-                    };
+                    }
 
                     const missingOption = async (...options: string[]) => {
                         await interaction.followUp({
                             content: 'The configuration has missing required option(s): ' + options.map((v) => `**${v}**`).join(', ')
                         }).catch(null);
-                    };
+                    }
 
                     const save = async () => {
                         await client.prisma.guild.updateMany({
@@ -125,7 +125,7 @@ export default new NetLevelBotCommand({
                         await interaction.followUp({
                             content: 'Successfully saved the configuration.'
                         }).catch(null);
-                    };
+                    }
 
                     const regexHexColor = /^#[0-9a-f]{3,6}$/i;
 
@@ -135,21 +135,21 @@ export default new NetLevelBotCommand({
                                 await missingOption('Attachment');
 
                                 return;
-                            };
+                            }
 
                             data.rankCardBackgroundURL = attachment.proxyURL;
 
                             save();
 
                             break;
-                        };
+                        }
 
                         case 'rankcard-levelcolor': {
                             if (!string) {
                                 await missingOption('String');
 
                                 return;
-                            };
+                            }
 
                             if (!regexHexColor.test(string)) {
                                 await interaction.followUp({
@@ -157,21 +157,21 @@ export default new NetLevelBotCommand({
                                 }).catch(null);
 
                                 return;
-                            };
+                            }
 
                             data.rankCardLevelColor = string;
 
                             save();
 
                             break;
-                        };
+                        }
 
                         case 'rankcard-rankcolor': {
                             if (!string) {
                                 await missingOption('String');
 
                                 return;
-                            };
+                            }
 
                             if (!regexHexColor.test(string)) {
                                 await interaction.followUp({
@@ -179,21 +179,21 @@ export default new NetLevelBotCommand({
                                 }).catch(null);
 
                                 return;
-                            };
+                            }
 
                             data.rankCardRankColor = string;
 
                             save();
 
                             break;
-                        };
+                        }
 
                         case 'rankcard-barcolor': {
                             if (!string) {
                                 await missingOption('String');
 
                                 return;
-                            };
+                            }
 
                             if (!regexHexColor.test(string)) {
                                 await interaction.followUp({
@@ -201,21 +201,21 @@ export default new NetLevelBotCommand({
                                 }).catch(null);
 
                                 return;
-                            };
+                            }
 
                             data.rankCardProgressbarColor = string;
 
                             save();
 
                             break;
-                        };
+                        }
 
                         case 'xprate': {
                             if (!number) {
                                 await missingOption('Number');
 
                                 return;
-                            };
+                            }
 
                             if (number < 0.25 || number > 5) {
                                 await interaction.followUp({
@@ -223,83 +223,83 @@ export default new NetLevelBotCommand({
                                 }).catch(null);
 
                                 return;
-                            };
+                            }
 
                             data.xpRate = number;
 
                             save();
 
                             break;
-                        };
+                        }
 
                         case 'levelupmessage': {
                             if (!string) {
                                 await missingOption('String');
 
                                 return;
-                            };
+                            }
 
                             data.levelUpMessage = string;
 
                             save();
 
                             break;
-                        };
+                        }
 
                         case 'levelupchannel': {
                             if (!channel) {
                                 await missingOption('Channel');
 
                                 return;
-                            };
+                            }
 
                             data.levelUpChannel = channel.id;
 
                             save();
 
                             break;
-                        };
+                        }
 
                         case 'toprankrole': {
                             if (!role) {
                                 await missingOption('Role');
 
                                 return;
-                            };
+                            }
 
                             data.topRankedRoleId = role.id;
 
                             save();
 
                             break;
-                        };
+                        }
 
                         case 'stackingroles': {
                             if (boolean === null) {
                                 await missingOption('Boolean');
 
                                 return;
-                            };
+                            }
 
                             data.stackingRoles = boolean;
 
                             save();
 
                             break;
-                        };
+                        }
 
                         case 'addrewardrole': {
                             if (!role || !integer) {
                                 await missingOption('Role', 'Integer');
 
                                 return;
-                            };
+                            }
 
                             if (integer <= 0 || integer > 1000) {
                                 await reply('Integer must be in this following condition: **0** < Integer ≤ **1000**');
 
                                 return;
-                            };
+                            }
 
                             const dataRole = await client.prisma.role.findMany({
                                 where: {
@@ -318,7 +318,7 @@ export default new NetLevelBotCommand({
                                 await reply(`That role is already added as a reward role.`);
 
                                 return;
-                            };
+                            }
 
                             const filter = data.some((r) => r.level === integer);
 
@@ -326,7 +326,7 @@ export default new NetLevelBotCommand({
                                 await reply(`That level has already a role reward.`)
 
                                 return;
-                            };
+                            }
 
                             await client.prisma.role.create({
                                 data: {
@@ -339,14 +339,14 @@ export default new NetLevelBotCommand({
                             save();
 
                             break;
-                        };
+                        }
 
                         case 'removerewardrole': {
                             if (!role) {
                                 await missingOption('Role');
 
                                 return;
-                            };
+                            }
 
                             const data = await client.prisma.role.findMany({
                                 where: {
@@ -359,7 +359,7 @@ export default new NetLevelBotCommand({
                                 await reply(`That role doesn't exist as a reward role.`);
 
                                 return;
-                            };
+                            }
 
                             await client.prisma.role.deleteMany({
                                 where: {
@@ -371,14 +371,14 @@ export default new NetLevelBotCommand({
                             save();
 
                             break;
-                        };
+                        }
 
                         case 'addnoxpchannel': {
                             if (!channel) {
                                 await missingOption('Channel');
 
                                 return;
-                            };
+                            }
 
                             if (data.noXpChannels) {
                                 const arr = data.noXpChannels.split(',');
@@ -388,19 +388,19 @@ export default new NetLevelBotCommand({
                                 data.noXpChannels = arr.join(',');
                             } else {
                                 data.noXpChannels = channel.id;
-                            };
+                            }
 
                             save();
 
                             break;
-                        };
+                        }
 
                         case 'removenoxpchannel': {
                             if (!channel) {
                                 await missingOption('Channel');
 
                                 return;
-                            };
+                            }
 
                             if (data.noXpChannels) {
                                 let arr = data.noXpChannels.split(',');
@@ -408,19 +408,19 @@ export default new NetLevelBotCommand({
                                 arr = arr.filter((ch) => ch !== channel.id);
 
                                 data.noXpChannels = arr.length <= 0 ? null : arr.join(',');
-                            };
+                            }
 
                             save();
 
                             break;
-                        };
+                        }
 
                         case 'addnoxprole': {
                             if (!role) {
                                 await missingOption('Role');
 
                                 return;
-                            };
+                            }
 
                             if (data.noXpRoles) {
                                 const arr = data.noXpRoles.split(',');
@@ -430,19 +430,19 @@ export default new NetLevelBotCommand({
                                 data.noXpRoles = arr.join(',');
                             } else {
                                 data.noXpRoles = role.id;
-                            };
+                            }
 
                             save();
 
                             break;
-                        };
+                        }
 
                         case 'removenoxprole': {
                             if (!role) {
                                 await missingOption('Role');
 
                                 return;
-                            };
+                            }
 
                             if (data.noXpRoles) {
                                 let arr = data.noXpRoles.split(',');
@@ -450,20 +450,20 @@ export default new NetLevelBotCommand({
                                 arr = arr.filter((ch) => ch !== role.id);
 
                                 data.noXpRoles = arr.length <= 0 ? null : arr.join(',');
-                            };
+                            }
 
                             save();
 
                             break;
-                        };
-                    };
+                        }
+                    }
 
                 } catch (err) {
                     new InteractionError(interaction, err);
-                };
+                }
 
                 break;
-            };
+            }
 
             case 'reset': {
                 const buttons = [
@@ -476,7 +476,7 @@ export default new NetLevelBotCommand({
                         .setStyle(ButtonStyle.Secondary)
                         .setLabel('No'),
                 ];
-            
+
                 await interaction.editReply({
                     content: 'Are you sure that you want to reset the configuration data by default?',
                     components: [
@@ -486,26 +486,26 @@ export default new NetLevelBotCommand({
                             )
                     ]
                 }).catch(null);
-            
+
                 const collector = interaction.channel?.createMessageComponentCollector({
                     componentType: ComponentType.Button,
                     time: 15000
                 });
-            
+
                 collector?.on('collect', async (i) => {
                     if (i.user.id !== interaction.user.id) {
                         await i.reply({
                             content: 'You are not the author of this interaction.',
                             ephemeral: true
                         }).catch(null);
-            
+
                         return;
-                    };
-            
+                    }
+
                     const split = i.customId.split('-');
 
                     if (split[1] !== interaction.id) return;
-            
+
                     if (split[0] === 'yes') {
                         collector.stop();
 
@@ -527,44 +527,44 @@ export default new NetLevelBotCommand({
                                 levelUpChannel: null
                             }
                         });
-        
+
                         await client.prisma.role.deleteMany({
                             where: {
                                 guildId: interaction.guild?.id,
                             }
                         });
-        
+
                         await i.editReply({
                             content: 'The configuration has been reset by default.'
                         }).catch(null);
-    
+
                     } else if (split[0] === 'no') {
                         collector.stop();
 
                         await i.reply({
                             content: 'The request has been cancelled.'
                         }).catch(null);
-                    };
+                    }
                 });
 
                 collector?.on('end', async () => {
                     await interaction.editReply({
                         components: [
                             new ActionRowBuilder<ButtonBuilder>()
-                            .addComponents(
-                                buttons.map((button) =>
-                                    button
-                                        .setStyle(ButtonStyle.Secondary)
-                                        .setDisabled(true)
+                                .addComponents(
+                                    buttons.map((button) =>
+                                        button
+                                            .setStyle(ButtonStyle.Secondary)
+                                            .setDisabled(true)
+                                    )
                                 )
-                            )
                         ]
                     }).catch(null);
                 });
 
                 break;
-            };
-        };
+            }
+        }
 
     }
 });

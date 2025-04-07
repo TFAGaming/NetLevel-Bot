@@ -40,5 +40,5 @@ export class InteractionError {
                 }
             }).catch(null);
         })();
-    };
-};
+    }
+}

@@ -16,29 +16,29 @@ const abbrev = (num: any) => {
                 }
                 num += abbrev[i];
                 break;
-            };
-        };
+            }
+        }
 
         return `${num}`;
-    };
-};
+    }
+}
 
 const renderEmoji = async (ctx: CanvasRenderingContext2D, message: string, x: number, y: number) => {
     return ctx.fillText(message, x, y);
-};
+}
 
 export default class Util {
     static shorten(text: string, len: number) {
         if (text.length <= len) return text;
 
         return text.substring(0, len).trim() + "...";
-    };
+    }
 
     static toAbbrev(num: number | string) {
         return abbrev(num);
-    };
+    }
 
     static renderEmoji(ctx: any, msg: string, x: number, y: number) {
         return renderEmoji(ctx, msg, x, y);
-    };
-};
+    }
+}

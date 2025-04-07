@@ -24,7 +24,7 @@ export default new GatewayEventListener({
                     });
 
                     return;
-                };
+                }
 
                 if (options.mainDeveloperOnly && interaction.user.id !== config.ownerId) {
                     await interaction.reply({
@@ -33,7 +33,7 @@ export default new GatewayEventListener({
                     });
 
                     return;
-                };
+                }
 
                 if (options.guildOwnerOnly && interaction.user.id !== interaction.guild.ownerId) {
                     await interaction.reply({
@@ -42,7 +42,7 @@ export default new GatewayEventListener({
                     });
 
                     return;
-                };
+                }
 
                 if (options.channelsOnly && interaction.user.id !== config.ownerId && !options.channelsOnly.includes(interaction.channel?.id || '')) {
                     const mentionedChannels: string[] = [];
@@ -51,7 +51,7 @@ export default new GatewayEventListener({
                         const channel = client.channels.cache.get(channelId);
 
                         if (channel) mentionedChannels.push('<#' + channelId + '>');
-                    };
+                    }
 
                     await interaction.reply({
                         content: `This command can be executed only in the following channels:\n${mentionedChannels.join(', ')}`,
@@ -59,7 +59,7 @@ export default new GatewayEventListener({
                     });
 
                     return;
-                };
+                }
 
                 if (options.rolesOnly && interaction.user.id !== config.ownerId) {
                     const member = interaction.guild.members.cache.get(interaction.user.id) as GuildMember;
@@ -73,24 +73,24 @@ export default new GatewayEventListener({
                             const role = interaction.guild.roles.cache.get(roleId);
 
                             if (role) mentionedRoles.push('<@&' + roleId + '>');
-                        };
+                        }
 
                         await interaction.reply({
                             content: `This command can be executed only if you have one of the following roles:\n${mentionedRoles.join(', ')}`,
                             ephemeral: true
                         });
-                    };
+                    }
 
                     return;
-                };
-            };
+                }
+            }
 
             if (interaction.isChatInputCommand() && command.type === 1) return command.callback(client, interaction);
             if (interaction.isUserContextMenuCommand() && command.type === 2) return command.callback(client, interaction);
             if (interaction.isMessageContextMenuCommand() && command.type === 3) return command.callback(client, interaction);
         } catch (err) {
             console.error(err);
-        };
+        }
 
     }
 });

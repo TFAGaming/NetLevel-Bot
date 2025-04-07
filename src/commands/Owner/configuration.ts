@@ -17,11 +17,11 @@ export default new NetLevelBotCommand({
     callback: async (client, interaction) => {
 
         if (!interaction.guild) return;
-        
+
         await interaction.deferReply().catch(null);
 
         try {
-            
+
             const data = await client.prisma.guild.findFirst({
                 where: {
                     guildId: interaction.guild.id
@@ -34,7 +34,7 @@ export default new NetLevelBotCommand({
                 }).catch(null);
 
                 return;
-            };
+            }
 
             const roles = await client.prisma.role.findMany({
                 where: {
@@ -55,7 +55,7 @@ export default new NetLevelBotCommand({
 
         } catch (err) {
             new InteractionError(interaction, err);
-        };
+        }
 
     }
 });

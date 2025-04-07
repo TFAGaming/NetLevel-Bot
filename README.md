@@ -59,10 +59,10 @@ This project has the similar leveling system as Mee6 and Lurkr, same formula and
 - **dotenv** v^16.3.1
 - **uuid** v^9.0.0
 
-> **Important**
+> [!IMPORTANT]
 > The package **canvacord** has it's source installed on this project, so avoid to install it via `npm install` command to bypass the latest typings errors.
 
-> **Warning**
+> [!WARNING]
 > Make sure that the package **chalk** has the version **v2.4.2** installed because this bot uses CommonJS modules, and chalk latest version uses ES6 modules.
 
 ## Dev-dependencies
@@ -80,7 +80,7 @@ This project has the similar leveling system as Mee6 and Lurkr, same formula and
 export default {
     developers: ['YOUR ACCOUNT ID'],
     ownerId: 'YOUR ACCOUNT ID'
-};
+ }
 ```
 
 4. Fill all required information of the bot again, but in **.env.example**, and rename the file to **.env**.
@@ -125,10 +125,10 @@ https://mee6.xyz/api/plugins/levels/leaderboard/GUILD_ID?page=20&limit=8
 
 Make sure to replace "**GUILD_ID**" with an actual server ID that Mee6 is invited on. If Mee6 is on the server but returns an error while fetching using it's API, you must enable the leaderboard to the public, which means anybody can see the users XP leaderboard.
 
-> **Warning**
+> [!WARNING]
 > You have a chance of getting rate-limited by Mee6 API, which means you'll get a temporary ban (30 minutes) and you'll be able to use it again after the unban. If you get rate-limited again on the same day (24 hours), you will get another temporary ban (2 hours), and then, it's going to be a permanent IP ban.
 
-> **Note**
+> [!NOTE]
 > You can bypass the Mee6 API rate-limit and bans by changing your IP, but it's not recommended. Here is how to bypass:
 > - Open your browser tab and search "What's my IP address", and then don't close the tab.
 > - Use one of the methods below, and then open another tab with the same search as the previous tab, if the IPs are different from the previous tab and the new one, you're good to go!

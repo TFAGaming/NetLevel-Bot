@@ -70,14 +70,14 @@ export default new NetLevelBotCommand({
 
                 await interaction.editReply({
                     content: `Importing from Mee6 database... (**${(((page) / limit) * 100).toFixed(1)}%**)`
-                }).catch(null);    
+                }).catch(null);
 
                 await wait(5000);
-            };
+            }
 
             await interaction.editReply({
                 content: `Successfully imported **${arr.length}** user\'s XP, saving into the database...`
-            }).catch(null); 
+            }).catch(null);
 
             await client.prisma.user.deleteMany({
                 where: {
@@ -98,17 +98,17 @@ export default new NetLevelBotCommand({
                         userId: each.id
                     }
                 });
-            };
+            }
 
             await interaction.editReply({
                 content: `Successfully saved **${arr.length}** user\'s XP into the database.`
-            }).catch(null); 
+            }).catch(null);
 
         } catch (err) {
             await interaction.editReply({
                 content: `Unable to import from the bot's API. Please make sure that I'm not rate-limited, the leaderboard is public, and the API isn't down.`
-            }).catch(null); 
-        };
+            }).catch(null);
+        }
 
     }
 });

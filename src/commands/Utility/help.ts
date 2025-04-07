@@ -34,7 +34,7 @@ export default new NetLevelBotCommand({
                                         otheroption: option2.name,
                                         description: option2.description
                                     });
-                                };
+                                }
                             } else if (option.type === 1) {
                                 commands.push({
                                     name: cmd.name,
@@ -50,29 +50,29 @@ export default new NetLevelBotCommand({
                                 });
 
                                 break;
-                            };
-                        };
+                            }
+                        }
                     } else {
                         commands.push({
                             name: cmd.name,
                             id: cmd.id,
                             description: cmd.description
                         });
-                    };
-                };
+                    }
+                }
             });
 
             const keys = [...client.categories.keys()];
             const final: { cat: string, message: string }[] = [];
 
             keys.forEach((key) => {
-                const toAdd: { cat: string, values: string[] } = { cat: key, values: [] };
+                const toAdd: { cat: string, values: string[] } = { cat: key, values: [] }
                 const data = client.categories.get(key);
 
                 commands.forEach((cmd) => {
                     if (data?.some((v) => v === cmd.name)) {
                         toAdd.values.push(`</${cmd.name}${cmd.suboption ? ` ${cmd.suboption}` : ''}${cmd.otheroption ? ` ${cmd.otheroption}` : ''}:${cmd.id}>: ${cmd.description}`)
-                    };
+                    }
                 });
 
                 final.push({
@@ -118,7 +118,7 @@ export default new NetLevelBotCommand({
                     }).catch(null);
 
                     return;
-                };
+                }
 
                 if (i.customId !== `help-${interaction.id}`) return;
 
@@ -142,7 +142,7 @@ export default new NetLevelBotCommand({
             });
         } catch (err) {
             new InteractionError(interaction, err);
-        };
+        }
 
     }
 });

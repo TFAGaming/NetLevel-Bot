@@ -25,7 +25,7 @@ export interface CommandStructureChatInput<C extends Client, O = {}> {
     options?: Partial<O>;
     callback: (client: C, interaction: ChatInputCommandInteraction) => Awaitable<void>;
     autocomplete?: (client: C, interaction: AutocompleteInteraction) => Awaitable<void>;
-};
+}
 
 export interface CommandStructureUserContext<C extends Client, O = {}> {
     type: 2,
@@ -33,7 +33,7 @@ export interface CommandStructureUserContext<C extends Client, O = {}> {
     options?: Partial<O>;
     callback: (client: C, interaction: UserContextMenuCommandInteraction) => Awaitable<void>;
     autocomplete?: never;
-};
+}
 
 export interface CommandStructureMessageContext<C extends Client, O = {}> {
     type: 3,
@@ -41,7 +41,7 @@ export interface CommandStructureMessageContext<C extends Client, O = {}> {
     options?: Partial<O>;
     callback: (client: C, interaction: MessageContextMenuCommandInteraction) => Awaitable<void>;
     autocomplete?: never;
-};
+}
 
 export type CommandStructure<C extends Client, O = {}> =
     CommandStructureChatInput<C, O> |
@@ -52,4 +52,4 @@ export interface EventStructure<C extends Client, K extends keyof ClientEvents> 
     event: K,
     once?: boolean,
     callback: (client: C, ...args: ClientEvents[K]) => Awaitable<void>
-};
+}

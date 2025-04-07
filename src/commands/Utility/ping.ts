@@ -14,7 +14,7 @@ export default new NetLevelBotCommand({
         if (!interaction.guild) return;
 
         try {
-            
+
             const dateBefore = Date.now();
 
             await interaction.deferReply().catch(null);
@@ -27,7 +27,7 @@ export default new NetLevelBotCommand({
 
         } catch (err) {
             new InteractionError(interaction, err);
-        };
+        }
 
     }
 });

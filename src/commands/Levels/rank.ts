@@ -49,21 +49,19 @@ export default new NetLevelBotCommand({
                     await interaction.followUp({
                         content: user.toString() + ' is a bot.'
                     });
-                } else { 
+                } else {
                     await interaction.followUp({
                         content: user.toString() + ' is currently at level **0**.',
                         allowedMentions: {
                             parse: []
                         }
                     });
-                };
+                }
 
                 return;
-            };
+            }
 
             const member = interaction.guild?.members.cache.get(user.id);
-
-            console.log(data);
 
             const rank = new Rank()
                 .setAvatar(user.displayAvatarURL())
@@ -96,6 +94,6 @@ export default new NetLevelBotCommand({
                 });
         } catch (err) {
             new InteractionError(interaction, err);
-        };
+        }
     }
 });
